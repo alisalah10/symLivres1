@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des categories{% endblock %}
+
+{% block body %}
+{% for label, messages in app.flashes() %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+    <h1>Liste des categories</h1>
+    <table class="table">
+        <tr class="table-info">
+            <th>Identifiant</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+
+    {% for cat in categories  %}
+        <tr>
+            <td>{{cat.id}}</td>
+            <td>{{cat.libelle}}</td>
+            <td>{{cat.description}}</td>
+            <td><a href="{{ path('admin_categories_id_delete',{'id':cat.id}) }}" class="btn btn-danger btn-sm">Supprimer</a></td>
+        </tr>
+
+    {% endfor %}
+    </table>
+
+{% endblock %}

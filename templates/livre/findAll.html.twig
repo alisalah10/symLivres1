@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des livres{% endblock %}
+
+{% block body %}
+    <h1>Liste des livres</h1>
+    <table class="table">
+        <tr class="table-info">
+            <th>Titre</th>
+            <th>Catégorie</th>
+            <th>Prix</th>
+            <th>Edieur</th>
+            <th>Date Edition</th>
+            <th colspan="2">Action</th>
+        </tr>
+
+    {% for livre in livres  %}
+        <tr>
+            <td>{{livre.libelle}}</td>
+            <td>{{ livre.categorie.libelle }}</td>
+            <td>{{livre.prix}}</td>
+            <td>{{livre.editeur}}</td>
+            <td>{{livre.dateEdition|date('d-m-Y')}}</td>
+            <td><a href="{{ path('admin_livres_id_delete',{'id':livre.id}) }}" class="btn btn-danger btn-sm">Supprimer</a></td>
+            <td><a href="{{ path('admin_livres_find_id',{'id':livre.id}) }}" class="btn btn-success btn-sm">voir détails</a></td>
+        </tr>
+
+    {% endfor %}
+    </table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(livres) }}
+
+{% endblock %}
